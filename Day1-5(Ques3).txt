@@ -1,0 +1,20 @@
+class Solution {
+    
+    public int countSubArrayProductLessThanK(long a[], long n, long k)
+    {
+        int count=0;
+        long result=1;
+        int j=0;
+        int i=0;
+        while(i<n){
+            result=result*a[i];
+            while(result>=k && j<i){
+                result/=a[j];
+                j++;
+            }
+            if(result<k) count+=i-j+1;
+            i++;
+        }
+        return count;
+    }
+}
