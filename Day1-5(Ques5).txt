@@ -1,0 +1,19 @@
+class Solution {
+    /* Function to get the nth ugly number*/
+    long getNthUglyNo(int n) {
+        // code here
+        long ugly[]=new long[n];
+        ugly[0]=1;
+        int two=0;
+        int three=0;
+        int five=0;
+        for(int i=1;i<n;i++){
+            long min=Math.min(2*ugly[two],Math.min(3*ugly[three],5*ugly[five]));
+            ugly[i]=min;
+            if(min==2*ugly[two]) two++;
+            if(min==3*ugly[three]) three++;
+            if(min==5*ugly[five]) five++;
+        }
+        return ugly[n-1];
+    }
+}
