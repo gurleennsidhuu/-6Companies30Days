@@ -1,0 +1,20 @@
+class GfG
+ {
+	String encode(String str)
+	{
+          char c=str.charAt(0);
+          int count=1;
+          String s="";
+          for(int i=1;i<str.length();i++){
+              if(str.charAt(i)==c) count++;
+              else{
+                  s=s+c+count;
+                  c=str.charAt(i);
+                  count=1;
+              }
+          }
+          s=s+c+count;
+          return s;
+	}
+	
+ }
