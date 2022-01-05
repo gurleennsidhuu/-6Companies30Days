@@ -1,0 +1,31 @@
+class Solution {
+    public boolean canPair(int[] nums, int k) {
+        // Code here
+        HashMap<Integer,Integer> mp=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            int num=nums[i]%k;
+            if(mp.containsKey(num)){
+                mp.put(num,mp.get(num)+1);
+            }
+            else{
+                mp.put(num,1);
+            }
+        }
+        for(int i=0;i<nums.length;i++){
+            int num=nums[i]%k;
+            if(num==0){
+                if(mp.get(num)%2!=0) return false;
+            }
+            else if(2*num==k){
+                if(mp.get(num)%2!=0) return false;
+            }
+            else{
+                if(!mp.containsKey(k-num)) return false;
+                else{
+                    if(mp.get(num)!=mp.get(k-num)) return false;
+                }
+            }
+        }
+        return true;
+    }
+}
