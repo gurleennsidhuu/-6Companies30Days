@@ -1,0 +1,17 @@
+class Solution{
+    static int[] maxTen(List<Integer> list){
+        // code here
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        for(int i=0;i<list.size();i++){
+            if(pq.size()>=10){
+                int num=pq.remove();
+                if(num>list.get(i)) pq.add(num);
+                else pq.add(list.get(i));
+            }
+            else pq.add(list.get(i));
+        }
+        int arr[]=new int[10];
+        for(int i=0;i<10;i++) arr[i]=pq.remove();
+        return arr;
+    }
+}

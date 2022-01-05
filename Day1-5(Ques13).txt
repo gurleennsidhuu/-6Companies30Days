@@ -1,0 +1,36 @@
+class Solution{
+    static String decodedString(String s){
+        // code here
+        Stack<Integer> st=new Stack<>();
+        Stack<String> str=new Stack<>();
+        String r="";
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)>='0' && s.charAt(i)<='9'){
+                int num=0;
+                while(s.charAt(i)>='0' && s.charAt(i)<='9'){
+                    num=num*10+(s.charAt(i)-'0');
+                    i++;
+                }
+                i--;
+                st.push(num);
+            }
+            else{
+                if(s.charAt(i)==']'){
+                    String temp="";
+                    while(!str.isEmpty() && !str.peek().equals("[")){
+                        if(!str.peek().equals("["))
+                        temp=str.pop()+temp;
+                    }
+                    if(!str.isEmpty())
+                    str.pop();
+                    int num=st.pop();
+                    String x="";
+                    for(int j=0;j<num;j++) x=temp+x;
+                    str.push(x);
+                }
+                else str.push(String.valueOf(s.charAt(i)));
+            }
+        }
+        return str.pop();
+    }
+}
