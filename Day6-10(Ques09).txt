@@ -1,0 +1,26 @@
+class Solution{
+    static int isValid(int mat[][]){
+        // code here
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(mat[i][j]==0) continue;
+                else if(check(mat,i,j,mat[i][j])) return 0;
+            }
+        }
+        return 1;
+    }
+    static boolean check(int mat[][],int i, int j,int num){
+        for(int k=0;k<9;k++){
+            if(k!=j && mat[i][k]==num) return true;
+            if(k!=i && mat[k][j]==num) return true;
+        }
+        int a=i-i%3;
+        int b=j-j%3;
+        for(int k=a;k<a+3;k++){
+            for(int l=b;l<b+3;l++){
+                if(k!=i && l!=j && mat[k][l]==num) return true;
+            }
+        }
+        return false;
+    }
+}
