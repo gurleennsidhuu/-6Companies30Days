@@ -1,0 +1,16 @@
+class Solution
+{
+    //Function to count number of ways to reach the nth stair 
+    //when order does not matter.
+    Long countWays(int m)
+    {
+        // your code here
+        Long dp[]=new Long[m+1];
+        dp[0]=1L;
+        dp[1]=1L;
+        for(int i=2;i<=m;i++){
+            dp[i]=1+dp[i-2];
+        }
+        return dp[m];
+    }    
+}
