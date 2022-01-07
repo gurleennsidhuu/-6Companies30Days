@@ -1,0 +1,21 @@
+class Solution
+{
+    public String FirstNonRepeating(String A)
+    {
+        // code here
+        Queue<Character> q=new LinkedList<>();
+        int arr[]=new int[26];
+        for(int i=0;i<26;i++) arr[i]=0;
+        StringBuilder str=new StringBuilder();
+        for(int i=0;i<A.length();i++){
+            if(arr[A.charAt(i)-'a']==0){
+                q.add(A.charAt(i));
+            }
+            arr[A.charAt(i)-'a']++;
+            while(!q.isEmpty() && arr[q.peek()-'a']>1) q.remove();
+            if(!q.isEmpty()) str.append(q.peek());
+            else str.append("#");
+        }
+        return str.toString();
+    }
+}
