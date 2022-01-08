@@ -1,0 +1,37 @@
+class Solution {
+    void matchPairs(char nuts[], char bolts[], int n) {
+        // code here
+        pivot(nuts,bolts,0,n-1);
+        
+    }
+    void pivot(char nuts[], char bolts[], int low,int high){
+        int p=0;
+        if(low<high){
+            p=helper(nuts,low,high,bolts[high]);
+            helper(bolts,low,high,nuts[p]);
+            pivot(nuts,bolts,low,p-1);
+            pivot(nuts,bolts,p+1,high);
+        }
+    }
+    int helper(char nuts[], int low, int high, int pivot){
+        int i=low;
+        char a, b;
+        for(int j=low;j<high;j++){
+            if(nuts[j]<pivot){
+                a=nuts[j];
+                nuts[j]=nuts[i];
+                nuts[i++]=a;
+            }
+            else if(nuts[j]==pivot){
+                b=nuts[j];
+                nuts[j]=nuts[high];
+                nuts[high]=b;
+                j--;
+            }
+        }
+        a=nuts[i];
+        nuts[i]=nuts[high];
+        nuts[high]=a;
+        return i;
+    }
+}
