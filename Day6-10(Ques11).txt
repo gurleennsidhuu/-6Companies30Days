@@ -1,0 +1,46 @@
+class Tree 
+{
+    //Function to serialize a tree and return a list containing nodes of tree.
+	public void serialize(Node root, ArrayList<Integer> A) 
+	{
+	    //code here
+	    Queue<Node> q=new LinkedList<>();
+	    q.add(root);
+	    while(!q.isEmpty()){
+	        int size=q.size();
+	        while(size-->0){
+	            Node temp=q.remove();
+	            if(temp==null) A.add(-1);
+	            else{
+	                A.add(temp.data);
+	                q.add(temp.left);
+	                q.add(temp.right);
+	            }
+	        }
+	    }
+	}
+	
+	//Function to deserialize a list and construct the tree.
+    public Node deSerialize(ArrayList<Integer> A)
+    {
+        //code here
+        Queue<Node> q=new LinkedList<>();
+        Node root;
+        if(A.get(0)==-1) return null;
+        else{
+            root=new Node(A.get(0));
+            A.remove(0);
+            q.add(root);
+        }
+        while(!q.isEmpty()){
+            Node temp=q.remove();
+            if(A.get(0)==-1) temp.left=null;
+            else {temp.left=new Node(A.get(0)); q.add(temp.left);}
+            A.remove(0);
+            if(A.get(0)==-1) temp.right=null;
+            else {temp.right=new Node(A.get(0)); q.add(temp.right);}
+            A.remove(0);
+        }
+        return root;
+    }
+};
