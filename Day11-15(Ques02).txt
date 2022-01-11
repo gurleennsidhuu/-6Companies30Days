@@ -1,0 +1,31 @@
+class Solution {
+    public boolean isPossible(int N, int[][] prerequisites)
+    {
+        // Your Code goes here
+        int deg[]=new int[N];
+        Map<Integer,List<Integer>> mp=new HashMap<>();
+        for(int i=0;i<N;i++) mp.put(i,new ArrayList<>());
+        for(int i=0;i<prerequisites.length;i++){
+            mp.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+        for(int i=0;i<prerequisites.length;i++){
+            deg[prerequisites[i][1]]++;
+        }
+        Queue<Integer> q=new LinkedList<>();
+        int courses=0;
+        for(int i=0;i<N;i++){
+            if(deg[i]==0) q.add(i);
+        }
+        while(!q.isEmpty()){
+            int num=q.remove();
+            courses++;
+            List<Integer> list=mp.get(num);
+            for(int i=0;i<list.size();i++){
+                deg[list.get(i)]--;
+                if(deg[list.get(i)]==0) q.add(list.get(i));
+            }
+        }
+        return N==courses;
+    }
+    
+}
