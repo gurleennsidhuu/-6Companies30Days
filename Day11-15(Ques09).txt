@@ -1,0 +1,15 @@
+class Tree
+{
+    //Function to count number of subtrees having sum equal to given sum.
+    int count=0;
+    int countSubtreesWithSumX(Node root, int X)
+    {
+	//Add your code here.
+	if(root==null) return 0;
+	countSubtreesWithSumX(root.left,X);
+	countSubtreesWithSumX(root.right,X);
+	root.data=root.data+(root.left==null?0:root.left.data)+(root.right==null?0:root.right.data);
+	if(root.data==X) count++;
+	return count;
+    }
+}

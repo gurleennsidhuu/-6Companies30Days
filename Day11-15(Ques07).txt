@@ -1,0 +1,44 @@
+class Solution
+{
+    //Function to find unit area of the largest region of 1s.
+    public int findMaxArea(int[][] grid)
+    {
+        // Code here
+        int max=0;
+        boolean vis[][]=new boolean[grid.length][grid[0].length];
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(!vis[i][j] && grid[i][j]==1) max=Math.max(max,bfs(grid,i,j,vis));
+            }
+        }
+        return max;
+    }
+    public class Pair{
+        int i;
+        int j;
+        Pair(int i, int j){
+            this.i=i;
+            this.j=j;
+        }
+    }
+    public int bfs(int[][] grid, int i, int j, boolean vis[][]){
+        Queue<Pair> q=new LinkedList<>();
+        q.add(new Pair(i,j));
+        int count=0;
+        int dx[]={0,0,-1,1,-1,1,1,-1};
+        int dy[]={-1,1,0,0,-1,1,-1,1};
+        while(!q.isEmpty()){
+            Pair temp=q.remove();
+            if(vis[temp.i][temp.j]) continue;
+            else vis[temp.i][temp.j]=true;
+            count++;
+            for(int k=0;k<8;k++){
+                int newx=temp.i+dx[k];
+                int newy=temp.j+dy[k];
+                if(newx<0 || newy<0 || newx>=grid.length || newy>=grid[0].length || grid[newx][newy]==0) continue;
+                q.add(new Pair(newx,newy));
+            }
+        }
+       return count;
+    }
+}
