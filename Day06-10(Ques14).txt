@@ -1,0 +1,50 @@
+public static int minTime(Node root, int target) 
+    {
+        // Your code goes here
+        HashMap<Node, Node> mp=new HashMap<>();
+        Queue<Node> q=new LinkedList<>();
+        Node req=null;
+        q.add(root);
+        mp.put(root,null);
+        while(!q.isEmpty()){
+            Node temp=q.remove();
+            if(temp.data==target) req=temp;
+            if(temp.left!=null){
+                q.add(temp.left);
+                mp.put(temp.left,temp);
+            }
+            if(temp.right!=null){
+                q.add(temp.right);
+                mp.put(temp.right,temp);
+            }
+        }
+        List<Node> vis=new ArrayList<>();
+        q=new LinkedList<>();
+        q.add(req);
+        vis.add(req);
+        int time=0;
+        while(!q.isEmpty()){
+            int size=q.size();
+            boolean f=false;
+            while(size-->0){
+                Node temp=q.remove();
+                if(mp.get(temp)!=null && !vis.contains(mp.get(temp))){
+                    f=true;
+                    vis.add(mp.get(temp));
+                    q.add(mp.get(temp));
+                }
+                if(temp.right!=null && !vis.contains(temp.right)){
+                    f=true;
+                    vis.add(temp.right);
+                    q.add(temp.right);
+                }
+                if(temp.left!=null && !vis.contains(temp.left)){
+                    f=true;
+                    vis.add(temp.left);
+                     q.add(temp.left);
+                }
+            }
+            if(f) time++;
+        }
+        return time;
+    }
