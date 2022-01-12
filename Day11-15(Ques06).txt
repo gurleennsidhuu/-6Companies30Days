@@ -1,0 +1,28 @@
+class Solution
+{
+    //Function to find list of all words possible by pressing given numbers.
+    static ArrayList <String> possibleWords(int a[], int N)
+    {
+        // your code here  
+        ArrayList<String> list=new ArrayList<>();
+        char arr[][]={{},{},{'a','b','c'},{'d','e','f'},{'g','h','i'},{'j','k','l'},{'m','n','o'}
+            ,{'p','q','r','s'},{'t','u','v'},{'w','x','y','z'}};
+        for(int i=0;i<arr[a[0]].length;i++){
+            list.add(String.valueOf(arr[a[0]][i]));
+        }
+        for(int i=1;i<a.length;i++){
+            helper(list,a,i,arr);
+        }
+        return list;
+    }
+    static void helper(ArrayList<String> list, int a[], int curr,char arr[][]){
+        if(curr>=a.length) return;
+        int n=list.size();
+        for(int i=0;i<n;i++){
+            String s=list.remove(0);
+            for(int j=0;j<arr[a[curr]].length;j++){
+                list.add(s+arr[a[curr]][j]);
+            }
+        }
+    }
+}
