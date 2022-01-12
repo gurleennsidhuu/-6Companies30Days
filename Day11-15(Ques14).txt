@@ -1,0 +1,12 @@
+class Solution{
+    static int minSteps(int D){
+        // code here
+        int sum=0;
+        int steps=0;
+        while(D>sum || (sum-D)%2==1){
+            steps++;
+            sum+=steps;
+        }
+        return steps;
+    }
+}
