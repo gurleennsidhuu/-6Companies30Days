@@ -1,0 +1,29 @@
+class Solution
+{
+    //Function to find if the given edge is a bridge in graph.
+    static int isBridge(int V, ArrayList<ArrayList<Integer>> adj,int c,int d)
+    {
+        // code here
+        boolean vis[]=new boolean[V];
+        Arrays.fill(vis,false);
+        adj.get(c).remove((Integer) d);
+        adj.get(d).remove((Integer) c);
+        bfs(adj,vis,c);
+        if(!vis[d]) return 1;
+        return 0;
+    }
+    static void bfs(ArrayList<ArrayList<Integer>> adj, boolean vis[], int num){
+        vis[num]=true;
+        Queue<Integer> q=new LinkedList<>();
+        q.add(num);
+        while(!q.isEmpty()){
+            int temp=q.remove();
+            for(int i=0;i<adj.get(temp).size();i++){
+                if(!vis[adj.get(temp).get(i)]){
+                    q.add(adj.get(temp).get(i));
+                    vis[adj.get(temp).get(i)]=true;
+                }
+            }
+        }
+    }
+}
