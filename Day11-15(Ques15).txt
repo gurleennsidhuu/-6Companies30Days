@@ -1,0 +1,45 @@
+class Solution
+{
+    public String findOrder(String [] dict, int N, int K)
+    {
+        // Write your code here
+        HashMap<Character,Integer> indeg=new HashMap<>();
+        HashMap<Character,List<Character>> mp=new HashMap<>();
+        for(int i=0;i<N-1;i++){
+            String word1=dict[i];
+            String word2=dict[i+1];
+            int len=Math.min(word1.length(),word2.length());
+            for(int j=0;j<len;j++){
+                if(!indeg.containsKey(word2.charAt(j))) indeg.put(word2.charAt(j),0);
+                if(!indeg.containsKey(word1.charAt(j))) indeg.put(word1.charAt(j),0);
+                if(!mp.containsKey(word1.charAt(j))) mp.put(word1.charAt(j),new ArrayList<>());
+                if(!mp.containsKey(word2.charAt(j))) mp.put(word2.charAt(j),new ArrayList<>());
+                if(word1.charAt(j)!=word2.charAt(j)){
+                    if(!mp.get(word1.charAt(j)).contains(word2.charAt(j))){
+                        mp.get(word1.charAt(j)).add(word2.charAt(j));
+                        indeg.put(word2.charAt(j),indeg.get(word2.charAt(j))+1);
+                    }
+                    break;
+                }
+            }
+        }
+            Queue<Character> q=new LinkedList<>();
+            for(Map.Entry<Character,Integer> map: indeg.entrySet()){
+                if(map.getValue()==0) q.add(map.getKey());
+            }
+            List<Character> vis=new ArrayList<>();
+            String s="";
+            while(!q.isEmpty()){
+                Character ch=q.remove();
+                if(vis.contains(ch)) continue;
+                vis.add(ch);
+                s=ch+s;
+                List<Character> list=mp.get(ch);
+                for(int i=0;i<list.size();i++){
+                    indeg.put(list.get(i),indeg.get(list.get(i))-1);
+                    if(indeg.get(list.get(i))==0) q.add(list.get(i));
+                }
+            }
+            return s;
+        }
+}
