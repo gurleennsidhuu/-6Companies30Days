@@ -1,0 +1,19 @@
+class Solution{
+    static int equalPartition(int N, int arr[])
+    {
+        // code here
+        int sum=0;
+        for(int i=0;i<N;i++) sum+=arr[i];
+        if(sum%2!=0) return 0;
+        sum=sum/2;
+        if(helper(sum,arr,0,0)) return 1;
+        return 0;
+    }
+    static boolean helper(int sum,int arr[],int curr,int currSum){
+        if(sum==currSum) return true;
+        else if(curr==arr.length) return false;
+        else if(helper(sum,arr,curr+1,currSum+arr[curr]) ) return true;
+        else if(helper(sum,arr,curr+1,currSum)) return true;
+        return false;
+    }
+}
