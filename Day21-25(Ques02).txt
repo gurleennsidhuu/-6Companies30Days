@@ -1,0 +1,41 @@
+class Solution
+{
+    public class Pair{
+        String s;
+        int x;
+        int y;
+        boolean[][] vis;
+        Pair(String s, int x, int y, boolean[][] vis){
+            this.s=s;
+            this.x=x;
+            this.y=y;
+            this.vis=vis;
+        }
+    }
+    public boolean isWordExist(char[][] board, String word)
+    {
+        // Code here
+        Stack<Pair> st=new Stack<>();
+        int dx[]={0,0,-1,1};
+        int dy[]={-1,1,0,0};
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                if(board[i][j]==word.charAt(0)) st.push(new Pair(""+word.charAt(0),i,j,new boolean[board.length][board[0].length]));
+            }
+        }
+        while(!st.isEmpty()){
+            Pair temp=st.pop();
+            if(temp.vis[temp.x][temp.y]) continue;
+            else temp.vis[temp.x][temp.y]=true;
+            if(temp.s.equals(word)) return true;
+            for(int i=0;i<4;i++){
+                int newx=temp.x+dx[i];
+                int newy=temp.y+dy[i];
+                if(newx>=0 && newy>=0 && newx<board.length && newy<board[0].length && !temp.vis[newx][newy]){
+                    if(word.charAt(temp.s.length())==board[newx][newy]) st.push(new Pair(temp.s+board[newx][newy],newx,newy,temp.vis));
+                }
+            }
+        }
+        return false;
+    }
+}
