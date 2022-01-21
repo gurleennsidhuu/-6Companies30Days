@@ -1,0 +1,45 @@
+class GfG
+{
+	public int missingNumber(String s)
+       {
+       //add code here.
+           for(int i=1;i<=6 && i<s.length();i++){
+               int num=0;
+                for(int j=0;j<i;j++) num=num*10+(s.charAt(j)-'0');
+                int mis=check(s,i,num,i);
+                if(mis!=-1) return mis;
+           }
+           return -1;
+       }
+       public int check(String s, int i, int num, int curr){
+           if(curr>=s.length()) return -1;
+           int val=0;
+           if(num==9 || num==99 || num==999 || num==9999 || num==99999) i++;
+           for(int j=curr;j<curr+i && j<s.length();j++){
+               val=val*10+(s.charAt(j)-'0');
+           }
+           if(num+1==val){
+               return check(s,i,val,curr+i);
+           }
+           else if(num+2==val){
+               int mis=num+1;
+               int f=check(s,i,val,curr+i);
+               if(f!=-1) return -1;
+               else return mis;
+           }
+           else if(num==8 || num==98 || num==998 || num==9998 || num==99998){
+               val=val*10+(s.charAt(curr+i)-'0');
+               //System.out.println(val);
+               int mis=-1;
+               if(val==10) mis=9;
+               else if(val==100) mis=99;
+               else if(val==1000) mis=999;
+               else if(val==10000) mis=9999;
+               else if(val==100000) mis=99999;
+               int f=check(s,i+1,val,curr+i+1);
+               if(f==-1) return mis;
+               else return -1;
+           }
+           return -1;
+       }
+}
