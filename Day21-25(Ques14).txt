@@ -1,0 +1,40 @@
+class Solution {
+    public class Pair{
+        int x;
+        int y;
+        int dis;
+        Pair(int x, int y, int dis){
+            this.x=x;
+            this.y=y;
+            this.dis=dis;
+        }
+    }
+    public int maxDistance(int[][] grid) {
+        Queue<Pair> q=new LinkedList<>();
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid.length;j++){
+                if(grid[i][j]==1) q.add(new Pair(i,j,0));
+            }
+        }
+        int dx[]={-1,0,0,1};
+        int dy[]={0,-1,1,0};
+        boolean vis[][]=new boolean[grid.length][grid.length];
+        int ans=0;
+        while(!q.isEmpty()){
+            Pair temp=q.remove();
+            if(vis[temp.x][temp.y]) continue;
+            else vis[temp.x][temp.y]=true;
+            ans=Math.max(ans,temp.dis);
+            for(int i=0;i<4;i++){
+                int newx=temp.x+dx[i];
+                int newy=temp.y+dy[i];
+                if(newx>=0 && newy>=0 && newx<grid.length && newy<grid.length){
+                    if(grid[temp.x][temp.y]==1) q.add(new Pair(newx,newy,1));
+                    else q.add(new Pair(newx,newy,temp.dis+1));
+                }
+            }
+        }
+        if(ans==0) return -1;
+        return ans;
+    }
+}
