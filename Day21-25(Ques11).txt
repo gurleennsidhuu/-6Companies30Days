@@ -1,0 +1,28 @@
+class Solution {
+    public Node construct(int[][] grid) {
+        Node root=helper(grid,0,0,grid.length,grid.length);
+        return root;
+    }
+    public Node helper(int[][] grid, int row1, int col1, int row2, int col2){
+        int num=-1;
+        if(row1<0 || row2<0 || col1<0 || col2<0 ||row1>=row2 || col1>=col2 || row1>grid.length || row2>grid.length || col1>grid.length || col2>grid.length) return null;
+        Node curr;
+        for(int i=row1;i<row2;i++){
+            for(int j=col1;j<col2;j++){
+                if(num==-1) num=grid[i][j];
+                if(num!=grid[i][j]){
+                    int newx=row1+(row2-row1)/2;
+                    int newy=col1+(col2-col1)/2;
+                    Node tl=helper(grid,row1,col1,newx,newy);
+                    Node tr=helper(grid,row1,newy,newx,col2);
+                    Node bl=helper(grid,newx,col1,row2,newy);
+                    Node br=helper(grid,newx,newy,row2,col2);
+                    curr=new Node(false,false,tl,tr,bl,br);
+                    return curr;
+                }
+            }
+        }
+        curr=new Node(num==0?false:true,true);
+        return curr;
+    }
+}
