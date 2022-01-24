@@ -1,0 +1,23 @@
+class Solution
+{
+
+	public int minDifference(int arr[], int n) 
+	{ 
+	    // Your code goes here
+	    int sum=0;
+	    for(int i=0;i<arr.length;i++) sum+=arr[i];
+	    boolean dp[]=new boolean[sum/2+1];
+	    Arrays.fill(dp,false);
+	    dp[0]=true;
+	    for(int i=0;i<n;i++){
+	        for(int j=sum/2;j>=arr[i];j--){
+	            dp[j]=dp[j] || dp[j-arr[i]];
+	        }
+	    }
+	    int min=sum;
+	    for(int i=0;i<sum/2+1;i++){
+	        if(dp[i]) min=Math.min(min,sum-2*i);
+	    }
+	    return min;
+	} 
+}
