@@ -1,0 +1,42 @@
+class Solution {
+    int ans=Integer.MAX_VALUE;
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int len=mountainArr.length();
+        int indx=peak(mountainArr,len);
+        if(helper(0,indx,target,mountainArr,true)) return ans;
+        if(helper(indx+1,len-1,target,mountainArr,false)) return ans;
+        return -1;
+    }
+    public boolean helper(int start, int end, int target, MountainArray a,boolean inc){
+        if(start>end) return false;
+        int mid=(start+end)/2;
+        int num=a.get(mid);
+        if(num==target){
+            ans=Math.min(mid,ans);
+            if(!inc)
+            helper(mid+1,end,target,a,inc);
+            return true;
+        }
+        else if(num>target){
+            if(inc) return helper(start,mid-1,target,a,inc);
+            else return helper(mid+1,end,target,a,inc);
+        }
+        else{
+            if(!inc) return helper(start,mid-1,target,a,inc);
+            else return helper(mid+1,end,target,a,inc);
+        }
+    }
+    public int peak(MountainArray a,int size){
+        int start=0;
+        int indx=0;
+        while(start<size){
+            int mid=(start+size)/2;
+            if(mid==0 || a.get(mid)>a.get(mid-1)){
+                indx=mid;
+                start=mid+1;
+            }
+            else size=mid-1;
+        }
+        return indx;
+    }
+}
