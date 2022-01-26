@@ -1,0 +1,18 @@
+class Solution
+{
+        
+    long power(int N,int R)
+    {
+        //Your code here
+        if(N==1 || R==0) return 1;
+        else if(R%2==0){
+            long ans=power(N,R/2)%(1000000007);
+            return (ans%(1000000007)*ans%(1000000007))%(1000000007);
+        }
+        else{
+            long ans=power(N,R/2)%(1000000007);
+            return (N%(1000000007)*ans%(1000000007)*ans%(1000000007))%(1000000007);
+        }
+    }
+
+}
