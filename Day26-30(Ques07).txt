@@ -1,0 +1,18 @@
+class Solution {
+    ArrayList<Integer> find3Numbers(ArrayList<Integer> arr, int n) {
+        // add code here.
+        Stack<Integer> st=new Stack<>();
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && st.peek()<=arr.get(i)) st.pop();
+            st.push(arr.get(i));
+            if(st.size()==3) break;
+        }
+        ArrayList<Integer> list=new ArrayList<>();
+        if(st.size()==3){
+            list.add(st.pop());
+            list.add(st.pop());
+            list.add(st.pop());
+        }
+        return list;
+    }
+}
