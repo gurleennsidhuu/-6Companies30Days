@@ -1,0 +1,15 @@
+class Solution {
+    public int getMoneyAmount(int n) {
+        int dp[][]=new int[n+2][n+1];
+        for(int g=2;g<=n;g++){
+            for(int i=1;i<=n-g+1;i++){
+                int min=Integer.MAX_VALUE;
+                for(int j=i;j<=g+i-1;j++){
+                    min=Math.min(min,j+Math.max(dp[i][j-1],dp[j+1][g+i-1]));
+                }
+                dp[i][g+i-1]=min;
+            }
+        }
+        return dp[1][n];
+    }
+}
