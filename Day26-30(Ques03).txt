@@ -1,0 +1,26 @@
+class Solution {
+    public boolean winnerOfGame(String colors) {
+        int countA=0;
+        int countB=0;
+        int curr=0;
+        for(int i=0;i<colors.length();i++){
+            if(colors.charAt(i)=='A') curr++;
+            else{
+                if(curr>=2) countA+=curr-2;
+                curr=0;
+            }
+        }
+        if(curr>=2) countA+=curr-2;
+        curr=0;
+        for(int i=0;i<colors.length();i++){
+            if(colors.charAt(i)=='B') curr++;
+            else{
+                if(curr>=2) countB+=curr-2;
+                curr=0;
+            }
+        }
+        if(curr>=2) countB+=curr-2;
+        if(countA==0) return false;
+        return countA>countB;
+    }
+}
